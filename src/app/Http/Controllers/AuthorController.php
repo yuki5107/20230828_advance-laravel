@@ -43,5 +43,26 @@ class AuthorController extends Controller
         Author::find($request->id)->delete();
         return redirect('/');
     }
+
+    public function find()
+   {
+       return view('find', ['input' => '']);
+   }
+   public function search(Request $request)
+   {
+       $item = Author::where('name', $request->input)->first();
+       $param = [
+           'input' => $request->input,
+           'item' => $item
+       ];
+            return view('find', $param);
+    }
+    public function bind(Author $author)
+   {
+       $data = [
+           'item'=>$author,
+       ];      
+         return view('author.binds', $data);  
+          }
 }
 
